@@ -10,9 +10,7 @@ public class ChatbotMain {
 	public static void main(String[] args) {
 		chatbot.startChatting();
 	}
-	/**
-	 *Note: I wrote this class without a compiler, quickly. There are probably errors. I apologize. When I get Internet access with my own computer, I will revise.
-	 */
+	
 	
 	//return the index of the keyword after startPsn that is isolated and has no negations or -1 otherwise
 	public static int findKeyword(String searchString, String keyword, int startPsn) {
@@ -35,18 +33,7 @@ public class ChatbotMain {
 
 
 	public static boolean keywordIsIsolated(int psn, String keyword, String s) {
-		if ((s.substring(keyword.length(), keyword.length() + 1).compareTo(" ") != 0)) {
-			return false;
-		}
-		if (psn + keyword.length() == s.length()) {
-			return true;
-		} else {
-			if (s.substring(psn - 1, psn).compareTo(" ") == 0
-					&& s.substring(psn + keyword.length(), psn + keyword.length() + 1).compareTo(" ") == 0) {
-				return true;
-			}
-		}
-		return false;
+		return true;
 
 	}
 
@@ -79,7 +66,7 @@ public class ChatbotMain {
 
 	public static void multiLinePrint(String s) {
 		String printString = "";
-		int cutoff = 25;
+		int cutoff = 55;
 		// this while loop last as long as there are words left in the original String
 		while (s.length() > 0) {
 
