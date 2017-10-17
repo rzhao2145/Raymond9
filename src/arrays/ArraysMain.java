@@ -8,6 +8,66 @@ public class ArraysMain {
 	private String[] values;
 	
 	public ArraysMain() {
+		tuesdayMethods();
+	}
+	private void tuesdayMethods() {
+		int[] orderTest = {1,2,3,4,5,1,6,7,8,9,10,11};
+//		cycleThrough(orderTest, 5);
+//		System.out.println(Arrays.toString(orderTest));
+		System.out.println(longestConsecutiveSequence(orderTest) + " is the l.c.s It should be 6");
+	}
+	
+	
+	//return the length of the longest cons. sequence in the array
+	private int longestConsecutiveSequence(int[] arr) {
+		int maxLength = 1;
+		int currentCount = 1;
+		for(int i = 0; i < arr.length; i++) {
+			while(i + currentCount < arr.length && isConsecutive(arr, i, i + currentCount)) {
+				currentCount++;
+			}
+			if(currentCount > maxLength) {
+				maxLength = currentCount;
+			}
+			i = i + currentCount - 1;
+			currentCount = 1;
+		}
+		return maxLength;
+		
+		
+	}
+	//returns true if all the elements from start to end are increasing by 1
+	private boolean isConsecutive(int[] arr, int start, int end) {
+		for(int i = start; i < end; i++) {
+			if(arr[i] + 1 != arr[i + 1]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	private void cycleThrough(int[] arr, int n) {
+		while(n > 0) {
+			frontToBack(arr);
+			n--;
+		}
+	}
+	//takes the element at index 0, pushes all other elements foward
+	//1 goes to 0, 2 goes to 1, ...
+	//puts the element that was at index 0 at the end
+	private void frontToBack(int[] arr) {
+		int temp = arr[0];
+		for(int i = 1; i < arr.length; i++) {
+			arr[i-1] = arr[i];
+		}
+		arr[arr.length - 1] = temp;
+	}
+	private void warmUpMethods() {
+		int[] orderTest = {1,2,3,4,5,6,7,8,9,10};
+		reverseOrder(orderTest);
+		System.out.println(Arrays.toString(orderTest));
+		System.out.println(Arrays.toString(subArray(orderTest,3,4)));
+	}
+	public void cardMethods() {
 		suits = new String[4];
 		suits[0] = "Clubs";
 		suits[1] = "Hearts";
@@ -23,8 +83,21 @@ public class ArraysMain {
 		values[11] = "Queen";
 		values[10] = "Jack";
 		printDeck();
+	}
+	
+	private void reverseOrder(int[] arr) {
+		for(int i = 0; i < arr.length/2; i++) {
+			swap(arr,i,arr.length-1-i);
+		}
+	}
+	
+	private int[] subArray(int[] arr, int psn, int length) {
+		int[] sub = new int[length];
+		for(int i = 0; i < length; i++) {
+			sub[i] = arr[i+psn];
+		}
+		return sub;
 		
-		// System.out.println(Arrays.toString(testArray));
 	}
 	
 	private String[] printDeck() {
