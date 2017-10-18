@@ -8,17 +8,47 @@ public class ArraysMain {
 	private String[] values;
 	
 	public ArraysMain() {
-		tuesdayMethods();
+		wednesdayMethods();
 	}
-	private void tuesdayMethods() {
-		int[] orderTest = {1,2,3,4,5,1,6,7,8,9,10,11};
-//		cycleThrough(orderTest, 5);
-//		System.out.println(Arrays.toString(orderTest));
-		System.out.println(longestConsecutiveSequence(orderTest) + " is the l.c.s It should be 6");
+	private void wednesdayMethods() {
+		int[] diceRolls = new int[10000];
+		populate(diceRolls);
+		int[] data = longestConsecutiveSeqandIndex(diceRolls);
+		int max = 1;
+		int longest = data[0];
+		System.out.println("The longest sequence is " + longest + " rolls. It happened on roll #" + data[1] + " the sequence was");
+		
+	}
+	
+	/*
+	 * BIG IDEA:
+	 * Usually a method returns one piece of data
+	 * If we ever want more than one piece of data, one way of doing that 
+	 * is by using an array, as you see here
+	 */
+	private int[] longestConsecutiveSeqandIndex(int[] arr) {
+		
+		int[] data = new int[2]; //element at 0 is length,  at 1 is position
+		
+		data[0] = 1;
+		int currentCount = 1;
+		for(int i = 0; i < arr.length; i++) {
+			while(i + currentCount < arr.length && isConsecutive(arr, i, i + currentCount)) {
+				currentCount++;
+			}
+			if(currentCount > data[0]) {
+				data[0] = currentCount;
+				//also store the index where this sequence started
+				data[1] = i;
+			}
+			i = i + currentCount - 1;
+			currentCount = 1;
+		}
+		return data;
 	}
 	
 	
-	//return the length of the longest cons. sequence in the array
+	
 	private int longestConsecutiveSequence(int[] arr) {
 		int maxLength = 1;
 		int currentCount = 1;
@@ -36,6 +66,13 @@ public class ArraysMain {
 		
 		
 	}
+	
+	private void tuesdayMethods() {
+		int[] orderTest = {1,2,3,4,5,1,6,7,8,9,10,11};
+		System.out.println(longestConsecutiveSequence(orderTest) + " is the l.c.s It should be 6");
+	}
+	
+	
 	//returns true if all the elements from start to end are increasing by 1
 	private boolean isConsecutive(int[] arr, int start, int end) {
 		for(int i = start; i < end; i++) {
