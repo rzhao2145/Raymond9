@@ -19,7 +19,6 @@ public class ArraysMain {
 		System.out.println("The longest sequence is " + longest + " rolls. It happened on roll #" + data[1] + " the sequence was");
 		
 	}
-	
 	/*
 	 * BIG IDEA:
 	 * Usually a method returns one piece of data
