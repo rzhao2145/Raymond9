@@ -15,6 +15,15 @@ public class Person {
 	private Borough home;
 	private Hobby hobby;
 	private Person[] friends;
+	private String nickname;
+	
+	/*
+	 * PASS BY VALUE
+	 * the parameters of a method contain only values, not references
+	 * therefore, when they are changed, the REFERENCE to the original
+	 * object does not change
+	 */
+	
 	
 	public Person(String first, String last, Borough home) {
 		this.firstName = first;
@@ -22,11 +31,66 @@ public class Person {
 		this.home = home;
 		friends = new Person[3];
 		hobby = Hobby.randomHobby();
+		nickname = createNickname(firstName);
+	}
+	
+	
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+	public static String createNickname(String name) {
+		String nickname = "";
+		int vowelCount = 0;
+		int idx = 0;
+		for(int i = 0; i < name.length(); i++) {
+			String letter = name.substring(i,i+1);
+			if(isVowel(letter)) {
+				vowelCount++;
+				if(vowelCount != 2) {
+					nickname += letter;
+				}else {
+					return nickname;
+				}
+			}else {
+				nickname += letter;
+			}
+		}
+		return nickname;
+	}
+	
+	public static boolean isVowel(String letter) {
+		letter = letter.toLowerCase();
+		if(letter.equals("a") || letter.equals("e") || letter.equals("i") || letter.equals("o") || letter.equals("u")) {
+			return true;
+		}
+		return false;
 	}
 	
 	public void stateYourFriends() {
 		String friendString = "My friends are ";
-		for(int i = 0; i < friends.length-1; i++) {
+		for(int i = 0; i < friends.length; i++) {
 			friendString += friends[i].firstName + ", ";
 		}
 		friendString += " and " + friends[friends.length-1];
@@ -52,7 +116,7 @@ public class Person {
 	}
 	
 	public String toString() {
-		return "My name is "+firstName+ " " + lastName + " and I am from " + home + ".";
+		return "My name is "+firstName+ " " + lastName + ". Call me " + nickname+ " and I am from " + home + ".";
 	}
 
 }
