@@ -1,4 +1,3 @@
-
 package caveExplorer;
 
 public class CaveRoom {
@@ -27,6 +26,40 @@ public class CaveRoom {
 		setDirections();
 	}
 
+	//where you edit your caves
+	public static void setUpCaves() {
+		//1. Determine size of caves
+		CaveExplorer.caves = new CaveRoom[5][5];
+		CaveRoom[][] c = CaveExplorer.caves; //create a shortcut for accessing CaveExplorer.caves
+		
+		//2. Populate with default caves
+		for(int row = 0; row < c.length; row++) {
+			for(int col = 0; col < c[row].length; col ++) {
+				c[row][col] = new CaveRoom("This cave has coordinated " + row + "," + col);
+			}
+		}
+		
+		//3. Replace some default rooms with custom rooms ( SAVE FOR LATER )
+		// -------------------------------------------------------------
+		
+		//4. Set starting room
+		CaveExplorer.currentRoom = c[0][1];
+		CaveExplorer.currentRoom.enter();
+		
+		//5. Set up doors 
+		c[0][1].setConnection(SOUTH, c[1][1], new Door());
+		c[1][1].setConnection(EAST, c[1][2], new Door());
+		
+	}
+	
+	//how we join rooms together 
+		//gives this room access to anotherRoom and vice-versa
+		//puts the door between both rooms
+		public void setConnection(int direction, CaveRoom anotherRoom, Door door ) {
+			addRoom(direction, anotherRoom, door);
+			anotherRoom.addRoom(oppositeDirection(direction),this,door);
+		}
+	
 	/*
 	 * for every Door in doors[] that is not null,
 	 * this method appends a String  to "directions" describing the door and where it is
@@ -66,13 +99,6 @@ public class CaveRoom {
 		contents = defaultContents;
 	}
 
-	//how we join rooms together 
-	//gives this room access to anotherRoom and vice-versa
-	//puts the door between both rooms
-	public void setConnection(int direction, CaveRoom anotherRoom, Door door ) {
-		addRoom(direction, anotherRoom, door);
-		anotherRoom.addRoom(opposititeDirection(direction),this,door);
-	}
 	
 	
 	public void addRoom(int dir, CaveRoom caveRoom, Door door) {
@@ -96,10 +122,6 @@ public class CaveRoom {
 		return input.length() == 1 && "wdsa".indexOf(input) > -1;
 	}
 
-	//where you edit your caves
-	public static void setUpCaves() {
-		
-	}
 	
 	public void goToRoom(int direction) {
 		//make sure there is a room to go to:
