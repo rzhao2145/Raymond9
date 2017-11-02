@@ -15,6 +15,7 @@ public class CaveExplorer {
 		in = new Scanner(System.in);
 		CaveRoom.setUpCaves(); //creates caves and starting room
 		inventory = new Inventory();
+	
 		startExploring();
 	}
 	
@@ -35,10 +36,18 @@ public class CaveExplorer {
 
 	private static void moveNPCs() {
 		for(NPC n: npcs) {
-			n.autoMove();
+			if(n instanceof Princess ) {
+				act();
+			} else {
+				n.autoMove();
+			}
 		}
 		inventory.updateMap();
 		
+	}
+	
+	private static void act() {
+		System.out.println("Far off in the distance, you hear a damsel in distress.");
 	}
 	
 }
