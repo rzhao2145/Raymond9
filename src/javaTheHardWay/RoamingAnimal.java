@@ -50,7 +50,7 @@ public class RoamingAnimal extends Animal {
 	public void act(){
 		increaseAge();
 		if(!canEat()) {
-			System.out.println(this + " died of starvation");
+			System.out.println(this /*+ " died of starvation"*/);
 			habitat.removeAnimal(this);
 		} else {
 			if(getAge() > 5) {
