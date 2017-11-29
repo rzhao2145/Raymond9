@@ -43,7 +43,7 @@ public class Searching {
 				+ "\n    Press 'enter' to begin.");
 		in.nextLine();
 
-		int index = search(numbers, target);
+		int index = binarySearch(numbers, 0, numbers.length - 1, target);
 
 		if(index!=-1){
 			System.out.println("The number "+target+" was found at index "+index+". Did the computer win?");
@@ -55,19 +55,37 @@ public class Searching {
 
 	public static int binarySearch(int[] searchThis, int startIndex, int endIndex, int target) {
 	
-		if(searchThis[(endIndex+startIndex)/2] == target) {
-			return (endIndex+startIndex)/2;
-		} else {
-			if(target > searchThis[startIndex]) {
-				return binarySearch(searchThis, (endIndex + startIndex)/2 , endIndex, target);
-			} else {
-				return binarySearch(searchThis, (startIndex/2) , startIndex, target);
+//		if(searchThis[(endIndex+startIndex)/2] == target) {
+//			return (endIndex+startIndex)/2;
+//		} else {
+//			if(target > searchThis[startIndex]) {
+//				return binarySearch(searchThis, (endIndex + startIndex)/2 , endIndex, target);
+//			} else {
+//				return binarySearch(searchThis, (startIndex/2) , startIndex, target);
+//			}
+//			
+//			
+//		}
+		if(startIndex == endIndex) {
+			if(searchThis[startIndex] == target) {
+				return startIndex;
+			} else if(searchThis[endIndex] == target){
+				return endIndex;
+			}else {
+				return -1;
 			}
+		} else {
 			
-			
+			if(searchThis[(startIndex + endIndex) / 2] < target) {
+				startIndex = (startIndex + endIndex) / 2;
+				return binarySearch(searchThis, startIndex, endIndex, target);
+			}else if(searchThis[(startIndex + endIndex) / 2] > target) {
+				endIndex = (startIndex + endIndex) / 2;
+				return binarySearch(searchThis, startIndex, endIndex, target);
+			}
 		}
-		
 		return -1;
+		
 	}
 	
 
